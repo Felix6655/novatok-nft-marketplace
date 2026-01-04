@@ -48,7 +48,7 @@
     "react-markdown": "^8.0.7",
     "react-responsive": "^9.0.0",
     "react-use-websocket": "^4.3.1",
-    "react-window": "^1.8.9",
+    "react-window": "^2.2.3",
     "swr": "2.0.1",
     "upgrade": "^1.1.0",
     "usehooks-ts": "^2.9.1",
@@ -67,7 +67,7 @@
     "@types/node": "^12.12.21",
     "@types/react": "18.2.66",
     "@types/react-dom": "18.2.22",
-    "@types/react-window": "^1.8.5",
+    "@types/react-window": "^2.0.0",
     "next-themes": "^0.2.0",
     "typescript": "^5.0.4"
   },
