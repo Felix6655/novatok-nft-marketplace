@@ -5,8 +5,15 @@ import { Box, Flex, Switch, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
 import { CSSProperties, FC, useMemo, useState } from 'react'
 import { addParam, hasParam, removeParam } from 'utils/router'
+
+import React from 'react'
 import { FixedSizeList } from 'react-window'
-const RWList = FixedSizeList as unknown as React.ComponentType<any>;
+
+class RWList extends React.PureComponent<any> {
+  render() {
+    return React.createElement(FixedSizeList as any, this.props as any)
+  }
+}
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
