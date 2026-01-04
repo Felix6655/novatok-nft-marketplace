@@ -70,5 +70,8 @@
     "@types/react-window": "^1.8.5",
     "next-themes": "^0.2.0",
     "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
