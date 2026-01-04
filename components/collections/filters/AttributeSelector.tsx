@@ -7,13 +7,7 @@ import { CSSProperties, FC, useMemo, useState } from 'react'
 import { addParam, hasParam, removeParam } from 'utils/router'
 
 import React from 'react'
-import { FixedSizeList } from 'react-window'
-
-class RWList extends React.PureComponent<any> {
-  render() {
-    return React.createElement(FixedSizeList as any, this.props as any)
-  }
-}
+import { FixedSizeList, ListChildComponentProps } from 'react-window'
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
@@ -34,12 +28,8 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
     })
   }, [attribute])
 
-  const AttributeRow: FC<{ index: number; style: CSSProperties }> = ({
-    index,
-    style,
-  }) => {
+  const AttributeRow = ({ index, style }: ListChildComponentProps) => {
     const currentAttribute = attribute?.values?.[index]
-
     return (
       <Flex
         key={index}
@@ -68,47 +58,37 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
           }
         }}
       >
-        <Text
-          style="body1"
-          css={{
-            color: '$gray11',
-            flex: 1,
-            whiteSpace: 'pre',
-            textOverflow: 'ellipsis',
-            overflow: 'hidden',
-          }}
-        >
+        <Text style="body2" css={{ flex: 1 }}>
           {currentAttribute?.value}
         </Text>
-
-        <Text style="body3" css={{ color: '$gray11' }}>
-          {currentAttribute?.count}
-        </Text>
-        <Flex align="center">
-          <Switch
-            checked={hasParam(
-              router,
-              `attributes[${attribute.key}]`,
-              currentAttribute?.value
-            )}
-            onCheckedChange={(checked) => {
-              if (checked) {
-                addParam(
-                  router,
-                  `attributes[${attribute.key}]`,
-                  currentAttribute?.value || ''
-                )
-              } else {
-                removeParam(
-                  router,
-                  `attributes[${attribute.key}]`,
-                  currentAttribute?.value
-                )
-              }
-              scrollToTop()
-            }}
-          />
-        </Flex>
+        <Switch
+          checked={hasParam(
+            router,
+            `attributes[${attribute.key}]`,
+            currentAttribute?.value
+          )}
+          onCheckedChange={() => {
+            if (
+              hasParam(
+                router,
+                `attributes[${attribute.key}]`,
+                currentAttribute?.value
+              )
+            ) {
+              removeParam(
+                router,
+                `attributes[${attribute.key}]`,
+                currentAttribute?.value
+              )
+            } else {
+              addParam(
+                router,
+                `attributes[${attribute.key}]`,
+                currentAttribute?.value || ''
+              )
+            }
+          }}
+        />
       </Flex>
     )
   }
@@ -143,24 +123,25 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
         />
       </Flex>
       <Flex css={{ paddingBottom: open ? 8 : 0 }}>
-        <RWList
-          height={
-            open
-              ? sortedAttributes && sortedAttributes?.length >= 7
-                ? 300
-                : (sortedAttributes?.length ?? 1) * 36
-              : 0
-          }
-          itemCount={sortedAttributes?.length ?? 1}
-          itemSize={36}
-          width={'100%'}
-          style={{
-            overflow: 'auto',
-            transition: 'max-height .3s ease-in-out',
-          }}
-        >
-          {AttributeRow}
-        </RWList>
+        {React.createElement(
+          FixedSizeList as any,
+          {
+            height:
+              open
+                ? sortedAttributes && sortedAttributes?.length >= 7
+                  ? 300
+                  : (sortedAttributes?.length ?? 1) * 36
+                : 0,
+            itemCount: sortedAttributes?.length ?? 1,
+            itemSize: 36,
+            width: '100%',
+            style: {
+              overflow: 'auto',
+              transition: 'max-height .3s ease-in-out',
+            },
+          },
+          AttributeRow as any
+        )}
       </Flex>
     </Box>
   )
