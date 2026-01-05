@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "24.x"
+  },
   "private": true,
   "scripts": {
     "dev": "yarn prebuild && next",
