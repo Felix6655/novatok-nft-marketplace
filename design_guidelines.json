@@ -1,0 +1,175 @@
+{
+  "identity": {
+    "persona": "E1: The Anti-AI Designer",
+    "mission": "Create a Web3 NFT Marketplace that feels like a high-end digital gallery, not a generic SaaS. Dark, immersive, and electric.",
+    "principles": [
+      "Fusion over Imitation: Mix Brutalism with Glassmorphism.",
+      "Emotion First: Every interaction should feel 'expensive' and 'secure'.",
+      "Content is King: The NFT art is the hero; the UI is the frame.",
+      "Zoom In: Big, bold details for NFT previews.",
+      "Negative Space: Luxurious gaps between collections."
+    ]
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Outfit, sans-serif",
+      "weights": ["600", "700", "800"],
+      "usage": "Main page titles, section headers, NFT names. Use tight tracking (-0.02em).",
+      "import_url": "https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Manrope:wght@400;500;600&display=swap"
+    },
+    "body": {
+      "font_family": "Manrope, sans-serif",
+      "weights": ["400", "500", "600"],
+      "usage": "Descriptions, prices, metadata, UI elements."
+    },
+    "mono": {
+      "font_family": "JetBrains Mono, monospace",
+      "usage": "Wallet addresses, transaction hashes, code snippets."
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": {
+        "default": "#050505",
+        "paper": "#0A0A0A",
+        "subtle": "#121212"
+      },
+      "primary": {
+        "main": "#CCFF00",
+        "hover": "#B3E600",
+        "foreground": "#000000",
+        "description": "Acid Lime - Use for Primary CTAs (Buy Now, Connect Wallet). High visibility against dark backgrounds."
+      },
+      "secondary": {
+        "main": "#FFFFFF",
+        "hover": "#E5E5E5",
+        "foreground": "#000000"
+      },
+      "accent": {
+        "cyan": "#00F0FF",
+        "purple": "#7B61FF",
+        "pink": "#FF0099"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#A1A1AA",
+        "muted": "#52525B"
+      },
+      "border": {
+        "default": "#27272A",
+        "active": "#3F3F46"
+      }
+    },
+    "gradients": {
+      "hero_glow": "radial-gradient(circle at 50% 50%, rgba(204, 255, 0, 0.15) 0%, rgba(5, 5, 5, 0) 70%)",
+      "glass_surface": "linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%)"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "cards": "backdrop-filter: blur(12px); background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);",
+      "overlays": "backdrop-filter: blur(20px); background: rgba(5, 5, 5, 0.8);"
+    },
+    "borders": {
+      "radius": {
+        "sm": "4px",
+        "md": "8px",
+        "lg": "16px",
+        "full": "9999px"
+      },
+      "width": "1px"
+    },
+    "shadows": {
+      "glow": "0 0 20px rgba(204, 255, 0, 0.3)",
+      "card": "0 4px 24px -1px rgba(0, 0, 0, 0.5)"
+    }
+  },
+  "layout": {
+    "spacing": {
+      "container_padding": "p-6 md:p-12 lg:p-24",
+      "section_gap": "gap-16 md:gap-32",
+      "item_gap": "gap-6"
+    },
+    "grids": {
+      "explore": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
+      "bento": "grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[300px]"
+    },
+    "container": {
+      "max_width": "max-w-7xl mx-auto"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#CCFF00] text-black font-bold hover:bg-[#B3E600] rounded-full px-8 py-3 transition-transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(204,255,0,0.4)]",
+      "secondary": "bg-transparent border border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-3 transition-colors",
+      "ghost": "text-white/70 hover:text-white hover:bg-white/5 rounded-lg px-4 py-2"
+    },
+    "cards": {
+      "nft_card": "group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-[#CCFF00]/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl",
+      "collection_card": "relative h-[400px] rounded-3xl overflow-hidden group cursor-pointer"
+    },
+    "inputs": {
+      "default": "bg-black/50 border border-white/10 focus:border-[#CCFF00] text-white rounded-lg px-4 py-3 outline-none transition-colors placeholder:text-white/20"
+    },
+    "navigation": {
+      "header": "fixed top-0 w-full z-50 border-b border-white/5 bg-[#050505]/80 backdrop-blur-xl h-20 flex items-center"
+    }
+  },
+  "assets": {
+    "images": {
+      "hero_bg": "https://images.unsplash.com/photo-1762341154386-fa765c9f2aa5?crop=entropy&cs=srgb&fm=jpg&q=85",
+      "nft_art": [
+        "https://images.unsplash.com/photo-1731335069412-b2a783ae6dac?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1736176421397-0fbac2e0b36a?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1737812714165-565790a9f354?crop=entropy&cs=srgb&fm=jpg&q=85"
+      ],
+      "avatars": [
+        "https://images.unsplash.com/photo-1750096319146-6310519b5af2?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1659141632957-a2cd74b8a446?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1656229181541-a42184b5625c?crop=entropy&cs=srgb&fm=jpg&q=85"
+      ],
+      "placeholders": {
+        "collection_cover": "https://images.pexels.com/photos/14321795/pexels-photo-14321795.jpeg"
+      }
+    },
+    "icons": {
+      "library": "lucide-react",
+      "preferred": ["Wallet", "Search", "Menu", "X", "ChevronDown", "Heart", "Share2", "MoreHorizontal", "ShieldCheck", "Zap"]
+    }
+  },
+  "motion": {
+    "transitions": {
+      "default": "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      "hover": "transform 0.2s ease-out"
+    },
+    "animations": {
+      "fade_in": "animate-in fade-in duration-500",
+      "slide_up": "animate-in slide-in-from-bottom-4 duration-500"
+    }
+  },
+  "accessibility": {
+    "contrast": "Ensure text is at least 4.5:1 against background. Use lighter grays (#A1A1AA) for secondary text, never dark gray.",
+    "focus_states": "Visible focus rings using the primary color (#CCFF00).",
+    "reduced_motion": "Respect prefers-reduced-motion media query."
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lucide-react' and 'clsx' 'tailwind-merge' if not present.",
+    "2. THEME: Update tailwind.config.js to include the custom colors (primary: #CCFF00, background: #050505).",
+    "3. FONTS: Add the Google Fonts import to index.css immediately.",
+    "4. COMPONENTS: Build 'Card', 'Button', 'Input' components first using the styles defined above.",
+    "5. LAYOUT: Use the 'Tetris' grid for the Explore page. Don't make it a boring grid of equal squares.",
+    "6. WALLET: The 'Connect Wallet' button must be the most prominent element in the header.",
+    "7. MOCK DATA: Use the provided image URLs for all mock data. Do not use placeholders.",
+    "8. NO AI: Do not add any 'AI Generated' tags or features. This is a pure Web3 marketplace.",
+    "9. TESTING: Add data-testid to all interactive elements (e.g., 'connect-wallet-btn', 'buy-now-btn')."
+  ],
+  "universal_guidelines": [
+    "Avoid generic centered layouts.",
+    "Use 2-3x more spacing than typical designs.",
+    "Dark colors look good when used independently without gradients.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters.",
+    "Every interaction needs micro-animations.",
+    "NEVER use AI assistant Emoji characters."
+  ]
+}
