@@ -1,17 +1,14 @@
-import React, { useMemo, useState } from "react"
-import { FixedSizeList } from "react-window"
-
-
-
+import React, { FC, useMemo, useState } from 'react'
 import { FixedSizeList } from 'react-window'
-import type { ListChildComponentProps } from 'react-window'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
 import { Box, Flex, Switch, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
-import { FC, useMemo, useState } from 'react'
 import { addParam, hasParam, removeParam } from 'utils/router'
+
+
+
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
