@@ -1,19 +1,12 @@
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useMemo, useState } from 'react'
-import type { CSSProperties, FC } from 'react'
+import type { FC } from 'react'
 import { FixedSizeList } from 'react-window'
 import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
 import { Box, Flex, Switch, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
 import { addParam, hasParam, removeParam } from 'utils/router'
-
-
-type RowProps<T = any> = {
-  index: number
-  style: React.CSSProperties
-  data: any
-}
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
@@ -33,7 +26,11 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
       : []
   }, [attribute])
 
-  const Row: FC<{ index: number; style: React.CSSProperties; data: any }> = ({ index, style, data }) => {
+  const Row: FC<{ index: number; style: React.CSSProperties; data: any }> = ({
+    index,
+    style,
+    data,
+  }) => {
     const value = data?.[index]
     if (!value) return null
 
@@ -48,12 +45,7 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
 
     return (
       <div style={style}>
-        <Flex
-          key={index}
-          css={{ gap: '$3' }}
-          align="center"
-          onClick={toggle}
-        >
+        <Flex css={{ gap: '$3' }} align="center" onClick={toggle}>
           <Text style="body2" css={{ flex: 1 }}>
             {value?.value}
           </Text>
@@ -62,6 +54,9 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
       </div>
     )
   }
+
+  const height = open ? (sortedAttributes.length >= 7 ? 264 : 132) : 0
+  const itemCount = open ? sortedAttributes.length : 0
 
   return (
     <Box
@@ -95,51 +90,14 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
 
       <Flex css={{ paddingBottom: open ? 8 : 0 }}>
         <FixedSizeList
-          height={open ? (sortedAttributes.length >= 7 ? 264 : 132) : 0}
-          itemCount={open ? sortedAttributes.length : 0}
+          height={height}
+          itemCount={itemCount}
           itemSize={44}
-          width={"100%"}
+          width="100%"
           itemData={sortedAttributes}
         >
           {Row as any}
         </FixedSizeList>
-      </Flex>
-    </Box>
-  )
-}
-      >
-        <Text as="h5" style="subtitle1" ellipsify>
-          {attribute.key}
-        </Text>
-        <FontAwesomeIcon
-          icon={faChevronDown}
-          style={{
-            transform: open ? 'rotate(180deg)' : 'rotate(0)',
-            transition: '.3s',
-          }}
-          width={16}
-          height={16}
-        />
-      </Flex>
-      <Flex css={{ paddingBottom: open ? 8 : 0 }}>
-        <List
-          height={
-            open
-              ? sortedAttributes && sortedAttributes?.length >= 7
-                ? 300
-                : (sortedAttributes?.length ?? 1) * 36
-              : 0
-          }
-          itemCount={sortedAttributes?.length ?? 1}
-          itemSize={36}
-          width={'100%'}
-          style={{
-            overflow: 'auto',
-            transition: 'max-height .3s ease-in-out',
-          }}
-        >
-          {AttributeRow}
-        </List>
       </Flex>
     </Box>
   )
