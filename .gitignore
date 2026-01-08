@@ -103,3 +103,7 @@ nextjs-marketplace/node_modules/next/next-swc-fallback/@next/swc-linux-arm64-mus
 nextjs-marketplace/node_modules/next/next-swc-fallback/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
 nextjs-marketplace/.next/cache/webpack/server-production/0.pack
 nextjs-marketplace/.next/cache/webpack/client-production/0.pack
+-e 
+# Environment files
+*.env
+*.env.*
