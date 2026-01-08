@@ -3,18 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useMemo, useState } from 'react'
 import type { CSSProperties, FC } from 'react'
 import { FixedSizeList } from 'react-window'
-
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useAttributes } from '@reservoir0x/reservoir-kit-ui'
 import { Box, Flex, Switch, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
 import { addParam, hasParam, removeParam } from 'utils/router'
 
+
 type RowProps<T = any> = {
   index: number
-  style: CSSProperties
-  data: T
+  style: React.CSSProperties
+  data: any
 }
 
 type Props = {
@@ -35,7 +33,7 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
       : []
   }, [attribute])
 
-  const Row: FC<RowProps<typeof sortedAttributes>> = ({ index, style, data }) => {
+  const Row: FC<{ index: number; style: React.CSSProperties; data: any }> = ({ index, style, data }) => {
     const value = data?.[index]
     if (!value) return null
 
@@ -100,7 +98,7 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
           height={open ? (sortedAttributes.length >= 7 ? 264 : 132) : 0}
           itemCount={open ? sortedAttributes.length : 0}
           itemSize={44}
-          width="100%"
+          width={"100%"}
           itemData={sortedAttributes}
         >
           {Row as any}
