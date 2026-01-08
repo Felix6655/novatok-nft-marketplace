@@ -99,3 +99,7 @@ android-sdk/ -e
 *.env.*
 frontend/node_modules/.cache/default-development/2.pack
 frontend/node_modules/.cache/default-development/0.pack
+nextjs-marketplace/node_modules/next/next-swc-fallback/@next/swc-linux-arm64-musl/next-swc.linux-arm64-musl.node
+nextjs-marketplace/node_modules/next/next-swc-fallback/@next/swc-linux-arm64-gnu/next-swc.linux-arm64-gnu.node
+nextjs-marketplace/.next/cache/webpack/server-production/0.pack
+nextjs-marketplace/.next/cache/webpack/client-production/0.pack

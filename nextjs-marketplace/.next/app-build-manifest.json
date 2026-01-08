@@ -1,0 +1,70 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/app/_not-found/page-52d13d73093ebf8b.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/css/fd7bc2ff9676f822.css",
+      "static/chunks/339e4811-805791ed9ce85aae.js",
+      "static/chunks/6f4789e3-947af9a2715aaa9e.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/7351-7eb0b5fd4c7cb9f5.js",
+      "static/chunks/6471-8db8b09503e39488.js",
+      "static/chunks/7852-46a065ed025b044f.js",
+      "static/chunks/app/layout-75d5d7b16c4a4168.js"
+    ],
+    "/collection/[id]/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/app/collection/[id]/page-cf51ece5833ee5f3.js"
+    ],
+    "/collections/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/app/collections/page-7f78d43768478e19.js"
+    ],
+    "/nft/[contract]/[tokenId]/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/339e4811-805791ed9ce85aae.js",
+      "static/chunks/6f4789e3-947af9a2715aaa9e.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/7351-7eb0b5fd4c7cb9f5.js",
+      "static/chunks/6471-8db8b09503e39488.js",
+      "static/chunks/app/nft/[contract]/[tokenId]/page-75c39b1ea6ba2c88.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/app/page-76327aaf2f6fe20d.js"
+    ],
+    "/profile/page": [
+      "static/chunks/webpack-a290d4978242d577.js",
+      "static/chunks/fd9d1056-45364ada9b28492f.js",
+      "static/chunks/2117-dfd94d3fa28b923d.js",
+      "static/chunks/main-app-69fc1ac0ed5c7cfd.js",
+      "static/chunks/446-a49f1cdf2dd33034.js",
+      "static/chunks/7351-7eb0b5fd4c7cb9f5.js",
+      "static/chunks/app/profile/page-f5d9708b76ec80ac.js"
+    ]
+  }
+}
