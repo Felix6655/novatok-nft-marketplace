@@ -1,15 +1,8 @@
-import React from 'react'
-import type { CSSProperties } from 'react'
-import type { FC } from 'react'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useMemo, useState } from 'react'
+import type { CSSProperties, FC } from 'react'
 import { FixedSizeList } from 'react-window'
-import { useState, useMemo } from 'react'
-
-type RowProps<T = any> = {
-  index: number
-  style: CSSProperties
-  data: T
-}
-
 
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,8 +11,11 @@ import { Box, Flex, Switch, Text } from 'components/primitives'
 import { useRouter } from 'next/router'
 import { addParam, hasParam, removeParam } from 'utils/router'
 
-
-
+type RowProps<T = any> = {
+  index: number
+  style: CSSProperties
+  data: T
+}
 
 type Props = {
   attribute: NonNullable<ReturnType<typeof useAttributes>['data']>[0]
@@ -31,39 +27,41 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
   const [open, setOpen] = useState(false)
 
   const sortedAttributes = useMemo(() => {
-    return attribute?.values ? [...attribute.values].sort((a, b) => {
-      if (!a.value || !b.value) return 0
-      return a.value.localeCompare(b.value)
-    }) : []
+    return attribute?.values
+      ? [...attribute.values].sort((a, b) => {
+          if (!a.value || !b.value) return 0
+          return a.value.localeCompare(b.value)
+        })
+      : []
   }, [attribute])
 
-  const AttributeRow = ({ index, style, data }: any) => {
-    const currentAttribute = sortedAttributes?.[index]
-    const attributeKey = `attributes[${attribute.key}]`
-    const isSelected = hasParam(router, attributeKey, currentAttribute?.value)
+  const Row: FC<RowProps<typeof sortedAttributes>> = ({ index, style, data }) => {
+    const value = data?.[index]
+    if (!value) return null
 
-    const handleToggle = () => {
-      if (isSelected) removeParam(router, attributeKey, currentAttribute?.value || '')
-      else addParam(router, attributeKey, currentAttribute?.value || '')
+    const attributeKey = `attributes[${attribute.key}]`
+    const isSelected = hasParam(router, attributeKey, value?.value)
+
+    const toggle = () => {
+      if (isSelected) removeParam(router, attributeKey, value?.value || '')
+      else addParam(router, attributeKey, value?.value || '')
       scrollToTop?.()
     }
 
     return (
-      <Flex
-        key={index}
-        style={style}
-        css={{ gap: '$3' }}
-        align="center"
-        onClick={handleToggle}
-      >
-        <Text style="body2" css={{ flex: 1 }}>
-          {currentAttribute?.value}
-        </Text>
-        <Switch
-          checked={isSelected}
-          onCheckedChange={handleToggle}
-        />
-      </Flex>
+      <div style={style}>
+        <Flex
+          key={index}
+          css={{ gap: '$3' }}
+          align="center"
+          onClick={toggle}
+        >
+          <Text style="body2" css={{ flex: 1 }}>
+            {value?.value}
+          </Text>
+          <Switch checked={isSelected} onCheckedChange={toggle} />
+        </Flex>
+      </div>
     )
   }
 
@@ -98,52 +96,52 @@ export const AttributeSelector: FC<Props> = ({ attribute, scrollToTop }) => {
       </Flex>
 
       <Flex css={{ paddingBottom: open ? 8 : 0 }}>
-        {React.createElement(
-          FixedSizeList as unknown as React.ComponentType<any>,
-          {
-            height: open ? (sortedAttributes?.length >= 7 ? 264 : 132) : 0,
-            itemCount: open ? sortedAttributes?.length ?? 0 : 0,
-            itemSize: 44,
-            width: '100%',
-            itemData: sortedAttributes,
-          },
-          ({ index, style, data }: any) => {
-            const value = data?.[index]
-            if (!value) return null
-
-            return (
-              <div style={style}>
-                {/* keep existing checkbox / label UI */}
-                <Flex
-                  key={index}
-                  css={{ gap: '$3' }}
-                  align="center"
-                  onClick={() => {
-                    const attributeKey = `attributes[${attribute.key}]`
-                    const isSelected = hasParam(router, attributeKey, value?.value)
-                    if (isSelected) removeParam(router, attributeKey, value?.value || '')
-                    else addParam(router, attributeKey, value?.value || '')
-                    scrollToTop?.()
-                  }}
-                >
-                  <Text style="body2" css={{ flex: 1 }}>
-                    {value?.value}
-                  </Text>
-                  <Switch
-                    checked={hasParam(router, `attributes[${attribute.key}]`, value?.value)}
-                    onCheckedChange={() => {
-                      const attributeKey = `attributes[${attribute.key}]`
-                      const isSelected = hasParam(router, attributeKey, value?.value)
-                      if (isSelected) removeParam(router, attributeKey, value?.value || '')
-                      else addParam(router, attributeKey, value?.value || '')
-                      scrollToTop?.()
-                    }}
-                  />
-                </Flex>
-              </div>
-            )
+        <FixedSizeList
+          height={open ? (sortedAttributes.length >= 7 ? 264 : 132) : 0}
+          itemCount={open ? sortedAttributes.length : 0}
+          itemSize={44}
+          width="100%"
+          itemData={sortedAttributes}
+        >
+          {Row as any}
+        </FixedSizeList>
+      </Flex>
+    </Box>
+  )
+}
+      >
+        <Text as="h5" style="subtitle1" ellipsify>
+          {attribute.key}
+        </Text>
+        <FontAwesomeIcon
+          icon={faChevronDown}
+          style={{
+            transform: open ? 'rotate(180deg)' : 'rotate(0)',
+            transition: '.3s',
+          }}
+          width={16}
+          height={16}
+        />
+      </Flex>
+      <Flex css={{ paddingBottom: open ? 8 : 0 }}>
+        <List
+          height={
+            open
+              ? sortedAttributes && sortedAttributes?.length >= 7
+                ? 300
+                : (sortedAttributes?.length ?? 1) * 36
+              : 0
           }
-        )}
+          itemCount={sortedAttributes?.length ?? 1}
+          itemSize={36}
+          width={'100%'}
+          style={{
+            overflow: 'auto',
+            transition: 'max-height .3s ease-in-out',
+          }}
+        >
+          {AttributeRow}
+        </List>
       </Flex>
     </Box>
   )
