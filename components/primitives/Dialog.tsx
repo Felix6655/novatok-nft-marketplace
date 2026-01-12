@@ -1,3 +1,8 @@
+export { Root as Dialog } from "@radix-ui/react-dialog";
+export { Root as Dialog } from "@radix-ui/react-dialog";
+// ...existing code...
+export { Content, Overlay };
+// ...existing code...
 import { styled } from '@stitches/react'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import {
@@ -34,6 +39,7 @@ const AnimatedOverlay = forwardRef<
 ))
 
 const Content = styled(DialogPrimitive.Content, {
+  export { Content, Overlay };
   backgroundColor: '$neutralBg',
   borderRadius: 8,
   $$shadowColor: '$colors$gray7',
@@ -54,28 +60,20 @@ const Content = styled(DialogPrimitive.Content, {
 const AnimatedContent = forwardRef<
   ElementRef<typeof DialogPrimitive.DialogContent>,
   ComponentPropsWithoutRef<typeof DialogPrimitive.DialogContent>
->(({ children, ...props }, forwardedRef) => (
-  <Content forceMount asChild {...props}>
-    <motion.div
-      ref={forwardedRef}
-      transition={{ type: 'spring', duration: 0.5 }}
-      initial={{
-        opacity: 0,
-        top: '14%',
-      }}
-      animate={{
-        opacity: 1,
-        top: '9%',
-      }}
-      exit={{
-        opacity: 0,
-        top: '14%',
-      }}
-    >
-      {children}
-    </motion.div>
-  </Content>
-))
+({ children, ...props }, forwardedRef) => {
+  return (
+    <DialogPrimitive.Content ref={forwardedRef} forceMount {...props}>
+      <motion.div
+        transition={{ type: 'spring', duration: 0.5 }}
+        initial={{ opacity: 0, top: '40%' }}
+        animate={{ opacity: 1, top: '50%' }}
+        exit={{ opacity: 0, top: '40%' }}
+      >
+        {children}
+      </motion.div>
+    </DialogPrimitive.Content>
+  );
+}
 
 type Props = {
   trigger?: ReactNode
@@ -130,4 +128,6 @@ const Dialog = forwardRef<
   }
 )
 
-export { Dialog, Content, AnimatedContent, Overlay, AnimatedOverlay }
+export { Dialog, AnimatedContent, AnimatedOverlay }
+export { Content, Overlay }
+export { Root as Dialog } from "@radix-ui/react-dialog";

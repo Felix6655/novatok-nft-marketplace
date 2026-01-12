@@ -15,7 +15,7 @@ import { useMediaQuery } from 'react-responsive'
 import { useMarketplaceChain, useMounted } from '../../hooks'
 import { useAccount } from 'wagmi'
 import CartButton from './CartButton'
-import { AccountSidebar } from 'components/navbar/AccountSidebar'
+import AccountSidebar from 'components/navbar/AccountSidebar'
 
 import * as HoverCard from '@radix-ui/react-hover-card'
 

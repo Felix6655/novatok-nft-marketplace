@@ -4,8 +4,8 @@ import { CSS } from '@stitches/react'
 import { useCopyToClipboard } from 'usehooks-ts'
 
 type Props = {
-  children: ReactNode
   text: string
+  children?: ReactNode
   css?: CSS
 }
 
@@ -50,7 +50,7 @@ const CopyText: FC<Props> = ({ children, text, css }) => {
           ...css,
         }}
       >
-        {children}
+        {children ?? text}
       </Box>
     </Tooltip>
   )

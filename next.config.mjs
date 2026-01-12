@@ -1,4 +1,4 @@
-import { DefaultChain } from './.cache/chains.mjs'
+import { DefaultChain } from './.cache/chains.js'
 import { withSentryConfig } from '@sentry/nextjs'
 
 const sentryWebpackPluginOptions = {

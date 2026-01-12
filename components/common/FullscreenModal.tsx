@@ -24,7 +24,7 @@ export const FullscreenModal: FC<Props> = ({
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogPortal>
         <Content
-          onInteractOutside={(e) => {
+          onInteractOutside={(e: Event) => {
             e.preventDefault()
           }}
           css={{

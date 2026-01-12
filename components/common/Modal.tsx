@@ -1,9 +1,9 @@
 import React, {
-  ComponentPropsWithoutRef,
   ElementRef,
   forwardRef,
   ReactNode,
 } from 'react'
+import type * as DialogPrimitive from '@radix-ui/react-dialog'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
@@ -17,19 +17,17 @@ const Title = styled(DialogPrimitive.Title, {
   margin: 0,
 })
 
-type Props = {
+type ModalProps = {
   title: string
-  children: ReactNode
+  children?: React.ReactNode
   onBack?: (() => void) | null
   loading?: boolean
-} & Pick<
-  ComponentPropsWithoutRef<typeof Dialog>,
-  | 'onPointerDownOutside'
-  | 'onOpenChange'
-  | 'open'
-  | 'trigger'
-  | 'onFocusCapture'
->
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+  trigger?: React.ReactNode
+  onPointerDownOutside?: DialogPrimitive.DialogContentProps['onPointerDownOutside']
+  onFocusCapture?: DialogPrimitive.DialogContentProps['onFocusCapture']
+}
 
 const Logo = styled(ReservoirLogoWhiteText, {
   '& .letter': {
@@ -37,7 +35,7 @@ const Logo = styled(ReservoirLogoWhiteText, {
   },
 })
 
-export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
+export const Modal = forwardRef<ElementRef<typeof Dialog>, ModalProps>(
   (
     {
       title,
@@ -53,74 +51,73 @@ export const Modal = forwardRef<ElementRef<typeof Dialog>, Props>(
     forwardedRef
   ) => {
     return (
-      <Dialog
-        ref={forwardedRef}
-        trigger={trigger}
-        open={open}
-        onOpenChange={onOpenChange}
-        onPointerDownOutside={onPointerDownOutside}
-        onFocusCapture={onFocusCapture}
-        overlayProps={{ style: { opacity: 0.6 } }}
-      >
-        <Flex
-          css={{
-            p: 16,
-            backgroundColor: '$gray3',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            borderTopRightRadius: '$borderRadius',
-            borderTopLeftRadius: '$borderRadius',
-          }}
-        >
-          <Title css={{ alignItems: 'center', display: 'flex' }}>
-            {onBack && (
-              <Button
-                color="ghost"
-                size="none"
-                css={{ mr: '$2', color: '$neutralText' }}
-                onClick={onBack}
-              >
-                <FontAwesomeIcon icon={faChevronLeft} width={16} height={16} />
+      <Dialog ref={forwardedRef} open={open} onOpenChange={onOpenChange}>
+        {trigger && (
+          <DialogPrimitive.Trigger asChild>
+            {trigger}
+          </DialogPrimitive.Trigger>
+        )}
+        <DialogPrimitive.Content onPointerDownOutside={onPointerDownOutside} onFocusCapture={onFocusCapture}>
+          <Flex
+            css={{
+              p: 16,
+              backgroundColor: '$gray3',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              borderTopRightRadius: '$borderRadius',
+              borderTopLeftRadius: '$borderRadius',
+            }}
+          >
+            <Title css={{ alignItems: 'center', display: 'flex' }}>
+              {onBack && (
+                <Button
+                  color="ghost"
+                  size="none"
+                  css={{ mr: '$2', color: '$neutralText' }}
+                  onClick={onBack}
+                >
+                  <FontAwesomeIcon icon={faChevronLeft} width={16} height={16} />
+                </Button>
+              )}
+              <Text style="h6">{title}</Text>
+            </Title>
+            <DialogPrimitive.Close asChild>
+              <Button color="ghost" size="none" css={{ color: '$neutralText' }}>
+                <FontAwesomeIcon icon={faClose} width={16} height={16} />
               </Button>
-            )}
-            <Text style="h6">{title}</Text>
-          </Title>
-          <DialogPrimitive.Close asChild>
-            <Button color="ghost" size="none" css={{ color: '$neutralText' }}>
-              <FontAwesomeIcon icon={faClose} width={16} height={16} />
-            </Button>
-          </DialogPrimitive.Close>
-        </Flex>
-        {loading && <LoadingSpinner />}
-        <Box
-          css={{
-            maxHeight: '85vh',
-            overflowY: 'auto',
-            backgroundColor: '$neutralBg',
-          }}
-        >
-          {children}
-        </Box>
-        <Flex
-          css={{
-            mx: 'auto',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '$gray3',
-            py: 10.5,
-            borderBottomRightRadius: '$borderRadius',
-            borderBottomLeftRadius: '$borderRadius',
-          }}
-        >
-          <Anchor href="https://reservoir.tools/" target="_blank">
-            <Text
-              style="body3"
-              css={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
-            >
-              Powered by <Logo />
-            </Text>
-          </Anchor>
-        </Flex>
+            </DialogPrimitive.Close>
+          </Flex>
+          {loading && <LoadingSpinner />}
+          <Box
+            css={{
+              maxHeight: '85vh',
+              overflowY: 'auto',
+              backgroundColor: '$neutralBg',
+            }}
+          >
+            {children}
+          </Box>
+          <Flex
+            css={{
+              mx: 'auto',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: '$gray3',
+              py: 10.5,
+              borderBottomRightRadius: '$borderRadius',
+              borderBottomLeftRadius: '$borderRadius',
+            }}
+          >
+            <Anchor href="https://reservoir.tools/" target="_blank">
+              <Text
+                style="body3"
+                css={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
+              >
+                Powered by <Logo />
+              </Text>
+            </Anchor>
+          </Flex>
+        </DialogPrimitive.Content>
       </Dialog>
     )
   }

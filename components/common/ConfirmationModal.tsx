@@ -5,7 +5,6 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { Dialog } from 'components/primitives/Dialog'
 import {
   Root as DialogRoot,
   DialogTrigger,
@@ -31,10 +30,10 @@ export const ConfirmationModal: FC<Props> = ({
   onConfirmed = () => {},
 }) => {
   return (
-    <Dialog
+    <DialogRoot
       open={open}
       onOpenChange={onOpenChange}
-      overlayProps={{ style: { opacity: 0.7 } }}
+      // overlayProps={{ style: { opacity: 0.7 } }}
     >
       <Flex direction="column" css={{ p: 24, gap: '$2', background: '$gray2' }}>
         <Text style="subtitle1">{title}</Text>
@@ -67,6 +66,6 @@ export const ConfirmationModal: FC<Props> = ({
           </Button>
         </Flex>
       </Flex>
-    </Dialog>
+    </DialogRoot>
   )
 }

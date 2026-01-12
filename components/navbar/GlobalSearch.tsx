@@ -21,7 +21,7 @@ import {
   useContext,
 } from 'react'
 
-import { useDebounce } from 'usehooks-ts'
+import { useDebounceValue } from 'usehooks-ts'
 import { useMediaQuery } from 'react-responsive'
 
 import Link from 'next/link'
@@ -206,7 +206,7 @@ const GlobalSearch = forwardRef<
   const hasResults = results.length > 0 || fallbackResults.length > 0
   const hasRecentResults = recentResults.length > 0
 
-  const debouncedSearch = useDebounce(search, 500)
+  const [debouncedSearch] = useDebounceValue(search, 500)
 
   const isMobile = useMediaQuery({ query: '(max-width: 960px)' })
 

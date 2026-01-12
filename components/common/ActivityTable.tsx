@@ -53,17 +53,16 @@ type Props = {
 }
 
 export const ActivityTable: FC<Props> = ({ data }) => {
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-  const loadMoreObserver = useIntersectionObserver(loadMoreRef, {})
+  const [loadMoreRef, loadMoreEntry] = useIntersectionObserver({ threshold: 0 })
 
   const activities = data.data
 
+  const isIntersecting = !!loadMoreEntry
   useEffect(() => {
-    const isVisible = !!loadMoreObserver?.isIntersecting
-    if (isVisible) {
+    if (isIntersecting) {
       data.fetchNextPage()
     }
-  }, [loadMoreObserver?.isIntersecting])
+  }, [isIntersecting])
 
   return (
     <>
@@ -104,7 +103,7 @@ type ActivityTableRowProps = {
 }
 
 type Logos = {
-  [key: string]: JSX.Element
+  [key: string]: React.ReactNode
 }
 
 const logos: Logos = {

@@ -3,6 +3,7 @@ import { Text, Flex, Box } from 'components/primitives'
 import Layout from 'components/Layout'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFolderOpen } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
 const IndexPage: NextPage = () => {
   return (
@@ -21,6 +22,9 @@ const IndexPage: NextPage = () => {
         <Text style="body1" color="subtle">
           The requested URL was not found on the server.
         </Text>
+        <Box css={{ mt: '$4' }}>
+          <Link href="/chain/ethereum">Go to Ethereum Marketplace &rarr;</Link>
+        </Box>
       </Flex>
     </Layout>
   )

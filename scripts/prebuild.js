@@ -1,6 +1,16 @@
+const fs = require("fs");
+const path = require("path");
+
+function copyIfExists(from, to) {
+  if (fs.existsSync(from)) {
+    fs.copyFileSync(from, to);
+    console.log(`Copied: ${from} -> ${to}`);
+    return true;
+  }
+  return false;
+}
+
 const { exec } = require('child_process')
-const fs = require('fs')
-const path = require('path')
 
 async function listFilesInDirectory(directoryPath) {
   try {
@@ -25,32 +35,44 @@ async function deleteAllFilesInDirectory(directoryPath) {
   }
 }
 
+const cacheDir = path.join(process.cwd(), ".cache");
+if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
+
+const outPath = path.join(cacheDir, "usdcContracts.js");
+
+fs.writeFileSync(
+  outPath,
+  `const usdcContracts = {
+  1: { address: "" },
+  137: { address: "" },
+  42161: { address: "" },
+  10: { address: "" },
+  8453: { address: "" },
+};
+
+export default usdcContracts;
+`
+);
+
+console.log("Generated:", outPath);
+
 deleteAllFilesInDirectory('.cache').then(() => {
   exec(
-    'tsc --module ES6 --outDir .cache ./utils/chains.ts',
+    'tsc --module ES6 --outDir .cache ./utils/chains.ts ./utils/usdcContracts.ts',
     (error, stdout, stderr) => {
-      const processFiles = async () => {
-        const files = fs.readdirSync('.cache')
-        for (fileId in files) {
-          const file = files[fileId]
-          if (file.endsWith('.js')) {
-            const originalPath = path.join('.cache', file)
-            const fileContents = await fs.readFileSync(originalPath, 'utf-8')
-            let modifiedContents = fileContents
-            files.forEach((filename) => {
-              const filenameWithoutExt = `./${filename.replace('.js', "'")}`
-              modifiedContents = modifiedContents.replace(
-                filenameWithoutExt,
-                `${filenameWithoutExt.replace("'", '')}.mjs'`
-              )
-            })
-            await fs.writeFileSync(originalPath, modifiedContents, 'utf-8')
-            const newPath = path.join('.cache', file.replace(/\.js$/, '.mjs'))
-            await fs.renameSync(originalPath, newPath)
-          }
-        }
+      // No renaming, no .mjs, just .js output
+
+      // Patch .cache/chains.js import extension
+      const chainsPath = path.join(process.cwd(), ".cache", "chains.js");
+      if (fs.existsSync(chainsPath)) {
+        let chainsCode = fs.readFileSync(chainsPath, "utf8");
+        chainsCode = chainsCode.replace(
+          /from\s+['"]\.\/usdcContracts['"]/g,
+          "from './usdcContracts.js'"
+        );
+        fs.writeFileSync(chainsPath, chainsCode);
+        console.log("Patched import in .cache/chains.js -> ./usdcContracts.js");
       }
-      processFiles()
     }
   )
 })

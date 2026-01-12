@@ -247,7 +247,7 @@ const BatchListModal: FC<Props> = ({ listings, disabled, onCloseComplete }) => {
       title="Complete Listings"
       trigger={trigger}
       open={open}
-      onOpenChange={(open) => {
+      onOpenChange={(open: boolean) => {
         if (
           !open &&
           onCloseComplete &&
@@ -257,6 +257,8 @@ const BatchListModal: FC<Props> = ({ listings, disabled, onCloseComplete }) => {
         }
         setOpen(open)
       }}
+      onFocusCapture={() => {}}
+      onPointerDownOutside={() => {}}
     >
       {batchListStep === BatchListStep.Approving && (
         <Flex

@@ -36,8 +36,7 @@ type Props = {
 const desktopTemplateColumns = '1.25fr .75fr repeat(4, 1fr)'
 
 export const OffersTable: FC<Props> = ({ address, isOwner }) => {
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-  const loadMoreObserver = useIntersectionObserver(loadMoreRef, {})
+  const { ref: loadMoreRef, entry } = useIntersectionObserver({});
 
   let bidsQuery: Parameters<typeof useBids>['0'] = {
     maker: address,
@@ -58,11 +57,10 @@ export const OffersTable: FC<Props> = ({ address, isOwner }) => {
   } = useBids(bidsQuery)
 
   useEffect(() => {
-    const isVisible = !!loadMoreObserver?.isIntersecting
-    if (isVisible) {
-      fetchNextPage()
+    if (entry?.isIntersecting) {
+      fetchNextPage();
     }
-  }, [loadMoreObserver?.isIntersecting])
+  }, [entry?.isIntersecting]);
 
   return (
     <>

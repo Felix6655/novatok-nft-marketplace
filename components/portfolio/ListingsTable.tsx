@@ -37,8 +37,17 @@ type Props = {
 const desktopTemplateColumns = '1.25fr .75fr repeat(4, 1fr)'
 
 export const ListingsTable: FC<Props> = ({ address, isOwner }) => {
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-  const loadMoreObserver = useIntersectionObserver(loadMoreRef, {})
+  const { ref: loadMoreRef, entry } = useIntersectionObserver({
+    root: null,
+    rootMargin: "200px",
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+  }, [entry?.isIntersecting]);
 
   let listingsQuery: Parameters<typeof useListings>['0'] = {
     maker: address,
@@ -58,11 +67,10 @@ export const ListingsTable: FC<Props> = ({ address, isOwner }) => {
   } = useListings(listingsQuery)
 
   useEffect(() => {
-    const isVisible = !!loadMoreObserver?.isIntersecting
-    if (isVisible) {
-      fetchNextPage()
+    if (entry?.isIntersecting) {
+      fetchNextPage();
     }
-  }, [loadMoreObserver?.isIntersecting])
+  }, [entry?.isIntersecting]);
 
   return (
     <>

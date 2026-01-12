@@ -1,6 +1,6 @@
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { CancelBidModal, CancelBidStep } from '@reservoir0x/reservoir-kit-ui'
-import { FC, ReactElement, cloneElement, useContext } from 'react'
+import { FC, ReactElement, cloneElement, useContext, isValidElement } from 'react'
 import { SWRResponse } from 'swr'
 import { useWalletClient } from 'wagmi'
 import { ToastContext } from '../../context/ToastContextProvider'
@@ -21,13 +21,16 @@ const CancelBid: FC<Props> = ({ bidId, openState, trigger, mutate }) => {
   const { data: signer } = useWalletClient()
 
   if (!signer) {
-    return cloneElement(trigger, {
-      onClick: async () => {
-        if (!signer) {
-          openConnectModal?.()
-        }
-      },
-    })
+    if (isValidElement(trigger)) {
+      return cloneElement(trigger as React.ReactElement<any>, {
+        onClick: async () => {
+          if (!signer) {
+            openConnectModal?.()
+          }
+        },
+      })
+    }
+    return null
   }
 
   return (

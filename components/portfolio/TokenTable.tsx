@@ -97,8 +97,7 @@ export const TokenTable = forwardRef<TokenTableRef, Props>(
     },
     ref
   ) => {
-    const loadMoreRef = useRef<HTMLDivElement>(null)
-    const loadMoreObserver = useIntersectionObserver(loadMoreRef, {})
+    const { ref: loadMoreRef, entry } = useIntersectionObserver({});
     const client = useReservoirClient()
     const [acceptBidModalOpen, setAcceptBidModalOpen] = useState(false)
 
@@ -143,11 +142,10 @@ export const TokenTable = forwardRef<TokenTableRef, Props>(
     }, [])
 
     useEffect(() => {
-      const isVisible = !!loadMoreObserver?.isIntersecting
-      if (isVisible) {
-        fetchNextPage()
+      if (entry?.isIntersecting) {
+        fetchNextPage();
       }
-    }, [loadMoreObserver?.isIntersecting])
+    }, [entry?.isIntersecting]);
 
     useEffect(() => {
       const eventListener: Parameters<
@@ -657,8 +655,8 @@ const TokenTableRow: FC<TokenTableRowProps> = ({
           {isOwner ? (
             <Checkbox
               checked={isSelectedItem(token)}
-              onCheckedChange={(checked) => {
-                if (checked) {
+              onCheckedChange={(checked: boolean | "indeterminate") => {
+                if (checked === true) {
                   addSelectedItem(token)
                 } else {
                   removeSelectedItem(token)

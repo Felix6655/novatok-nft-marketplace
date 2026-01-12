@@ -7,7 +7,7 @@ import {
   ReactNode,
   useState,
 } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 
 export const slideDown = keyframes({
   from: { height: 0 },
@@ -30,27 +30,31 @@ const CollapsibleRoot = styled(CollapsiblePrimitive.Root, {
   overflow: 'hidden',
 })
 
+
+type CollapsibleContentProps =
+  ComponentPropsWithoutRef<typeof CollapsibleContent> & {
+    children?: ReactNode
+  }
+
 const AnimatedCollapsibleContent = forwardRef<
   ElementRef<typeof CollapsibleContent>,
-  ComponentPropsWithoutRef<typeof CollapsibleContent>
+  CollapsibleContentProps
 >(({ children, ...props }, forwardedRef) => (
-  <CollapsibleContent asChild forceMount {...props}>
-    <motion.div
+  <CollapsibleContent forceMount {...props}>
+    <div
       ref={forwardedRef}
-      initial={{ width: 0 }}
-      animate={{
-        width: '100%',
-        transition: { mass: 1, duration: 0.15 },
-      }}
-      exit={{
-        width: 0,
-        transition: { duration: 0.3 },
-      }}
+      className="
+        overflow-hidden
+        transition-[max-height] duration-300 ease-in-out
+        data-[state=closed]:max-h-0
+        data-[state=open]:max-h-[1000px]
+      "
     >
       {children}
-    </motion.div>
+    </div>
   </CollapsibleContent>
-))
+));
+AnimatedCollapsibleContent.displayName = "CollapsibleContent";
 
 type Props = {
   trigger: ReactNode

@@ -9,10 +9,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useChainStats, useMarketplaceChain } from 'hooks'
 import { formatNumber } from 'utils/numbers'
+import type { ReactNode } from 'react'
 
 type Section = {
   title: string
-  stat: string | JSX.Element
+  stat: string | ReactNode
   icon: IconDefinition
 }
 
